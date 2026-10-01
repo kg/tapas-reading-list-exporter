@@ -64,7 +64,7 @@ except KeyboardInterrupt:
     print("interrupted")
     abort_after_write = True
 
-with open("subscriptions.csv", "w", newline="") as result_file:
+with open("subscriptions.csv", "w", newline="", encoding="utf-8") as result_file:
     csv_writer = csv.writer(result_file)
     csv_writer.writerows(subscription_rows)
 
@@ -98,7 +98,7 @@ try:
         sys.stdout.write(".")
         sys.stdout.flush()
 
-        sleep(3)
+        sleep(5)
 except KeyboardInterrupt:
     print("interrupted")
 
@@ -139,11 +139,11 @@ try:
         sys.stdout.write(".")
         sys.stdout.flush()
 
-        sleep(3)
+        sleep(5)
 except KeyboardInterrupt:
     print("interrupted")
 
-with open("creators.csv", "w", newline="") as result_file:
+with open("creators.csv", "w", newline="", encoding="utf-8") as result_file:
     csv_writer = csv.writer(result_file)
     csv_writer.writerows(author_rows)
 
