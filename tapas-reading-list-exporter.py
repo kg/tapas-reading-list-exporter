@@ -105,7 +105,7 @@ except KeyboardInterrupt:
 sys.stdout.write(f"\nFound {len(author_urls_to_fetch)} unique creators in total. Fetching their info")
 sys.stdout.flush()
 
-author_rows = [["creator_name", "creator_website", "creator_description", "creator_tapas_url"]]
+author_rows = [["creator_name", "creator_website_1", "creator_website_2", "creator_website_3", "creator_tapas_url"]]
 try:
     for author_url in author_urls_to_fetch:
         resp_buffer = BytesIO()
@@ -120,19 +120,21 @@ try:
 
         creator_name = soup.find("p", {"class": "author"}).string
 
-        creator_description = soup.find("p", {"class": "js-creator-description"})
-        if creator_description:
-            creator_description_text = creator_description.string
-        else:
-            creator_description_text = ""
+        creator_links = soup.find_all("a", {"class": "site-name"})
+        creator_website_url_1 = ""
+        creator_website_url_2 = ""
+        creator_website_url_3 = ""
 
-        creator_link = soup.find("a", {"class": "site-name"})
-        if creator_link:
-            creator_website_url = creator_link["href"]
-        else:
-            creator_website_url = ""
+        if len(creator_links) > 0:
+            creator_website_url_1 = creator_links[0]["href"]
 
-        author_rows.append([creator_name, creator_website_url, creator_description_text, author_url])
+        if len(creator_links) > 1:
+            creator_website_url_2 = creator_links[1]["href"]
+
+        if len(creator_links) > 2:
+            creator_website_url_3 = creator_links[2]["href"]
+
+        author_rows.append([creator_name, creator_website_url_1, creator_website_url_2, creator_website_url_3, author_url])
 
         sys.stdout.write(".")
         sys.stdout.flush()
